@@ -1,0 +1,5 @@
+1) http://acm.mipt.ru/twiki/bin/view/Cintro/PythonGraphs
+2) https://pythonru.com/biblioteki/pyplot-uroki
+3) https://pyprog.pro/mathematical_functions/log.html
+4) https://pyprog.pro/array_creation/linspace.html
+5) https://pyprog.pro/array_manipulation/append.html

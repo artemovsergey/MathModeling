@@ -1,0 +1,58 @@
+\documentclass[11pt]{article}
+
+% Engine-specific settings
+% pdftex:
+\ifcsname pdfmatch\endcsname
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+\fi
+% xetex:
+\ifcsname XeTeXinterchartoks\endcsname
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures=TeX}
+\fi
+% luatex:
+\ifcsname directlua\endcsname
+    \usepackage{fontspec}
+\fi
+% End engine-specific settings
+
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage[keeptemps=all, makestderr, usefamily=bash]{pythontex}
+
+\begin{document}
+
+
+\section*{Bash}
+
+Inline:  \bash{echo "Hello from bash!"}
+
+Code environment:
+\begin{bashcode}
+echo "More from bash."
+\end{bashcode}
+
+Block environment:
+\begin{bashblock}
+ls -a
+\end{bashblock}
+Printed output:
+\printpythontex[verbatim]
+
+Verbatim:
+\begin{bashverbatim}
+echo "More from bash."
+\end{bashverbatim}
+
+
+Sub environment:
+\begin{bashsub}
+Some text \textcolor{blue}{!{"followed by things from bash"}} and then more text.
+\end{bashsub}
+
+Again, with command:  \bashs{Some text \textcolor{blue}{!{"followed by more things from bash"}} and then more text.}
+
+\end{document}

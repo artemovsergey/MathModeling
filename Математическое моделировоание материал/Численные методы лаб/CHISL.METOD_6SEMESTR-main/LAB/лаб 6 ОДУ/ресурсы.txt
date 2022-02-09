@@ -1,0 +1,4 @@
+1) https://pythononline.ru/osnovy/tkinter-treeview
+2) https://pythonru.com/uroki/vidzhet-treeview-tkinter-22
+3) https://www.delftstack.com/ru/howto/python-tkinter/how-to-create-full-screen-window-in-tkinter/
+4) https://yandex.by/images/search?text=%D0%BB%D0%BE%D0%B3%D0%B0%D1%80%D0%B8%D1%84%D0%BC%D1%8B%20%D1%81%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0&stype=image&lr=154&source=wiz&pos=2&img_url=https%3A%2F%2Fi.ytimg.com%2Fvi%2F_4BiylwEp0s%2Fmaxresdefault.jpg&rpt=simage

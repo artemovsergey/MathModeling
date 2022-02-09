@@ -1,0 +1,209 @@
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{multirow} 
+\usepackage{booktabs} 
+
+\usepackage{graphicx} 
+
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\usepackage{fancyhdr}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\pagestyle{fancy} 
+
+\fancyhf{} 
+
+\lhead{\footnotesize Расчетное задание №5}
+
+\rhead{\footnotesize Николаев Юрий} 
+
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+
+\thispagestyle{empty} 
+
+\begin{tabular}{p{15.5cm}} 
+НИУ МЭИ \\ А-13а-19  \\ Вариант 13 \\ Николаев Юрий\\
+\hline 
+\\
+\end{tabular} 
+
+\vspace*{0.3cm}
+
+\begin{center} 
+	{\Large \bf Расчетное задание №5} 
+	\vspace{2mm}
+\end{center}  
+
+\vspace{0.4cm}
+
+
+\section{Задание}
+Решить систему уравнений $Ax = b$ методом Гаусса (схема единственного деления).
+
+\begin{center}
+\begin{tabular}{ | c  c  c c | c | }
+\hline
+ \multicolumn{4}{| c |}{A} & b \\ \hline 
+-2 & -2 & -8 & -10 & 60 \\
+10 & 15 & 41 & 44 & -276 \\
+-14 & 1 & -46 & -97 & 567 \\
+20 & -15 & 24 & 204 & -1287 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Решение}
+
+\begin{enumerate}
+
+\item Исключаем неизвестные из всех уравнений, кроме первого:
+
+\begin{equation*}
+    \begin{cases}
+    -2x_1 - 2x_2 - 8x_3 - 10x_4 = 60\\
+    10x_1 + 15x_2 + 41x_3 + 44x_4 = -276\\
+    -14x_1 + x_2 - 46x_3 - 97x_4 = 567\\
+    20x_1 - 15x_2 + 24x_3 + 204x_4 = -1287
+    \end{cases}
+\end{equation*}
+
+$
+A = \left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+10 & 15 & 41 & 44\\ 
+-14 & 1 & -46 & -97\\
+20 & -15 & 24 & 204 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ -276 \\ 567 \\ -1287 
+\end{matrix}\right)\right.\ 
+\sim~\ 
+\begin{pmatrix} 
+\mu_{2,1} = \frac{10}{-2} = -5\\ 
+\mu_{3,1} = \frac{-14}{-2} = 7 \\ 
+\mu_{4,1} = \frac{20}{-2} = -10
+\end{pmatrix} \\
+\sim~\ 
+\left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+0 & 5 & 1 & -6\\ 
+0 & 15 & 10 & -27\\
+0 & -35 & -56 & 104 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ 24 \\ 147 \\ -687 
+\end{matrix}\right)\right.\ 
+$
+
+
+\item Ведущий элемент 2-го шага - "5":
+
+$
+A = \left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+0 & 5 & 1 & -6\\ 
+0 & 15 & 10 & -27\\
+0 & -35 & -56 & 104 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ 24 \\ 147 \\ -687 
+\end{matrix}\right)\right.\ 
+\sim~\ 
+\begin{pmatrix} 
+\mu_{3,2} = \frac{15}{5} = 3\\ 
+\mu_{4,2} = \frac{-35}{5} = -7
+\end{pmatrix} \\
+\sim~\ 
+\left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+0 & 5 & 1 & -6\\ 
+0 & 0 & 7 & -9\\
+0 & 0 & -49 & 62 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ 24 \\ 75 \\ -519 
+\end{matrix}\right)\right.\ 
+$
+
+\newpage
+
+\item Ведущий элемент 3-го шага - "7":
+
+$
+A = \left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+0 & 5 & 1 & -6\\ 
+0 & 15 & 10 & -27\\
+0 & -35 & -56 & 104 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ 24 \\ 75 \\ -519 
+\end{matrix}\right)\right.\ 
+\sim~\ 
+\begin{pmatrix} 
+\mu_{4,3} = \frac{-49}{7} = -7
+\end{pmatrix} \\
+\sim~\ 
+\left(\begin{matrix} 
+-2 & -2 & -8 & -10\\ 
+0 & 5 & 1 & -6\\ 
+0 & 0 & 7 & -9\\
+0 & 0 & 0 & -1 
+\end{matrix}\left| 
+\begin{matrix} 
+60 \\ 24 \\ 75 \\ 6 
+\end{matrix}\right)\right.\ 
+$
+\vspace{0.5cm}
+
+\begin{equation*}
+    \begin{cases}
+    -2x_1 - 2x_2 - 8x_3 - 10x_4 = 60\\
+    5x_2 + x_3 - 6x_4 = 24\\
+    7x_3 - 9x_4 = 75\\
+    -x_4 = 6
+    \end{cases}
+\end{equation*}
+
+Привели матрицу к треугольному виду, перейдем ко второму этапу.
+
+\item Обратный ход метода Гаусса (снизу вверх):
+
+$x_4 = -6$
+
+$x_3 = \frac{75 - 54}{7} = 3$
+
+$x_2 = \frac{24 - 36 - 3}{5} = -3$
+
+$x_1 = \frac{60 - 60 + 24 - 6}{-2} = -9$
+
+\end{enumerate}
+\begin{center}
+\Large \textbf{Ответ:}
+\begin{equation*}
+    \begin{cases}
+    x_1 = -9\\
+    x_2 = -3\\
+    x_3 = 3\\
+    x_4 = -6
+    \end{cases}
+\end{equation*}
+\end{center}
+
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass[11pt]{article}
+
+% Engine-specific settings
+% pdftex:
+\ifcsname pdfmatch\endcsname
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+\fi
+% xetex:
+\ifcsname XeTeXinterchartoks\endcsname
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures=TeX}
+\fi
+% luatex:
+\ifcsname directlua\endcsname
+    \usepackage{fontspec}
+\fi
+% End engine-specific settings
+
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage[keeptemps=all, makestderr, usefamily={rust, rs}]{pythontex}
+\fvset{breaklines}
+
+\begin{document}
+
+
+\section*{Rust (\texttt{rust})}
+
+Inline:  \rust{format!("$3 + 5 = {}$", 3+5)}.  \rusts{$4 + 6 = !{4+6}$}.
+
+
+\begin{rustcode}
+println!("Hello from Rust!");
+println!("Running command family ``{}'', session ``{}'', restart ``{}''.", rstex.family, rstex.session, rstex.restart);
+\end{rustcode}
+
+
+
+\begin{rustblock}
+println!("{}\\endinput", 2.0_f64.powf(8.0_f64));
+\end{rustblock}
+
+Printed output:  \printpythontex.
+
+\begin{rustsub}
+\color{blue}
+\begin{Verbatim}
+2.0_f64.powf(8.0_f64) = !{2.0_f64.powf(8.0_f64)}
+\end{Verbatim}
+\end{rustsub}
+
+
+\section*{Rust (\texttt{rs})}
+
+Inline:  \rs{format!("$3 + 5 = {}$", 3+5)}.  \rss{$4 + 6 = !{4+6}$}.
+
+
+\begin{rscode}
+println!("Hello from Rust!");
+println!("Running command family ``{}'', session ``{}'', restart ``{}''.", rstex.family, rstex.session, rstex.restart);
+\end{rscode}
+
+
+
+\begin{rsblock}
+println!("{}\\endinput", 2.0_f64.powf(8.0_f64));
+\end{rsblock}
+
+Printed output:  \printpythontex.
+
+\begin{rssub}
+\color{blue}
+\begin{Verbatim}
+2.0_f64.powf(8.0_f64) = !{2.0_f64.powf(8.0_f64)}
+\end{Verbatim}
+\end{rssub}
+
+
+
+\section*{Errors}
+
+\begin{rustblock}[error]
+println!("{}\\endinput", 2.0_f64.powf(8.0_f64);
+\end{rustblock}
+
+\stderrpythontex
+
+
+
+\section*{File tracking}
+
+\begin{rustblock}[file_io]
+// Open and write to two files, to check created file tracking
+let mut my_file1 = io::BufWriter::new(rstex.open("my_file1.txt", open_mode::NW)
+                                           .unwrap());
+writeln!(my_file1, "This is a text file.").unwrap();
+writeln!(my_file1, "Some more text.").unwrap();
+writeln!(my_file1, "3 + 2 = {}", 3 + 2).unwrap();
+drop(my_file1);
+
+let mut my_file2 = io::BufWriter::new(rstex.open("my_file2.txt", open_mode::NW)
+                                           .unwrap());
+writeln!(my_file2, "This is another text file.").unwrap();
+writeln!(my_file2, "Some more text for another text file.").unwrap();
+writeln!(my_file2, "5 + 8 = {}", 5 + 8).unwrap();
+drop(my_file2);
+
+
+// Open and read from LaTeX file, to check dependency tracking
+let in_file = "rust_test.tex";
+println!("Reading from file \"{}\"...", in_file);
+for (n, line) in io::BufReader::new(rstex.open(in_file, open_mode::R)
+                                         .unwrap())
+                               .lines()
+                               .map(Result::unwrap)
+                               .enumerate()
+{
+    if n < 8 {
+        println!("line {}: {}", n + 1, line);
+    }
+}
+\end{rustblock}
+
+Text written to stdout:
+
+\printpythontex[verbatim]
+
+\end{document}

@@ -1,0 +1,4 @@
+1) https://qna.habr.com/q/399232
+2) https://кофедизайн.рф/information/solving_systems_of_linear_equations_in_python/
+3) file:///D:/Книги/Python/Python%203%20и%20PyQt%205.%20Разработка%20приложений%20(%20PDFDrive.com%20).pdf
+4) https://pyprog.pro/linear_algebra_functions/linalg_solve.html

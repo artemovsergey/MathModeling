@@ -1,0 +1,1 @@
+node C:\Users\olga\Desktop\laba11\start.js

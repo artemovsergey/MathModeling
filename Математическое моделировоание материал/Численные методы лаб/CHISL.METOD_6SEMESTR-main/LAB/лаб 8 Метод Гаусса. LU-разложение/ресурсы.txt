@@ -1,0 +1,4 @@
+1) https://pyprog.pro/linear_algebra_functions/linalg_matrix_rank.html
+2) https://math1.ru/education/sys_lin_eq/kapelli.html
+3) https://all-python.ru/osnovy/mnozhestva.html
+4) https://function-x.ru/cpp_metod_gaussa.html

@@ -1,0 +1,239 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Intro to LaTeX and Template for Homework Assignments
+%% Quantitative Methods in Political Science
+%% University of Mannheim
+%% Fall 2017
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% created by Marcel Neunhoeffer & Sebastian Sternberg
+
+
+% This template and tutorial will help you to write up your homework. It will also help you to use Latex for other assignments than this course's homework.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Before we get started
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Make an account on overleaf.com and get started. No need to install anything.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Or if you want it the nerdy way...
+% INSTALL LATEX: Before we can get started you need to install LaTeX on your computer.
+				% Windows: http://miktex.org/download
+				% Mac:         http://www.tug.org/mactex/mactex-download.html	
+				% There a many more different LaTeX editors out there for both operating systems. I use TeXworks because it looks the same on Windows and Mac.
+				
+
+% SAVE THE FILE: The first thing you need to do is to save your LaTeX file in a directory as a .tex file. You will not be able to do anything else unless your file is saved. I suggest to save the .tex file in the same folder with your .R script and where you will save your plots from R to. Let's call this file template_homework1.tex and save it in your Week 1 folder.
+
+
+% COMPILE THE FILE: After setting up your file, using your LaTeX editor (texmaker, texshop), you can compile your document using PDFLaTeX.
+	% Compiling your file tells LaTeX to take the code you have written and create a pdf file
+	% After compiling your file, in your directory will appear four new files, including a .pdf file. This is your output document.
+	% It is good to compile your file regularly so that you can see how your code is translating into your document.
+	
+	
+% ERRORS: If you get an error message, something is wrong in your code. Fix errors before they pile up!
+	% As with error messages in R, google the exact error message if you have a question!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Now again for everyone...
+
+% COMMANDS: 
+	% To do anything in LaTeX, you must use commands
+	% Commands tell LaTeX when to start your document, how you want your document to look, and how to format your document
+	% Commands ALWAYS begin with a backslash \
+
+% Everything following the % sign is a comment and will not be used by Latex to compile your document.
+% This is very similar to # comments in R.
+
+% Every .tex file usually consists of four parts.
+% 1. Document Class
+% 2. Packages
+% 3. Header
+% 4. Your Document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize Расчетное задание №2}% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Николаев Юрий} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize \thepage} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+НИУ МЭИ \\ А-13а-19  \\ Вариант 13 \\ Николаев Юрий\\
+\hline % \hline produces horizontal lines.
+\\
+\end{tabular} % Our tabular environment ends here.
+
+\vspace*{0.3cm} % Now we want to add some vertical space in between the line and our title.
+
+\begin{center} % Everything within the center environment is centered.
+	{\Large \bf Расчетное задание №2} % <---- Don't forget to put in the right number
+	\vspace{2mm}
+\end{center}  
+
+\vspace{0.4cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Up until this point you only have to make minor changes for every week (Number of the homework). Your write up essentially starts here.
+\section{Задание}
+Локализовать корень нелинейного уравнения $f(x) = 0$ и найти его методом бисекции с точностью $\varepsilon = 0.01$.
+
+$$f(x) = \ln (x + 1) + x - 2$$
+
+\section{Решение}
+
+\begin{enumerate}
+
+\item Локализуем корень нелинейного уравнения $f(x) = 0$:
+\vspace{0.5cm}
+
+\begin{tikzpicture}
+\begin{axis}[
+	domain=-1:5, 
+	legend pos = south west
+	ymin = 0,
+	grid = major
+]
+\legend{$\ln(x+1)$, $2 - x$}
+\addplot[dashed, draw = blue]{ln(x+1)};
+\addplot[solid, draw = red]{2 - x};
+\end{axis}
+\end{tikzpicture}
+\vspace{0.5cm}
+
+Исследуем поведение знака функции $f(x) = \ln (x + 1) + x - 2$ на отрезке $[0,6; 1,5]$, построив таблицу ее приближенных значений с небольшим шагом равным 0,1:
+\vspace{0.5cm}
+
+\begin{tabular}{ || c | c || c  | c || }
+\hline
+$x$ & $f(x)$ & $x$ & $f(x)$\\ \hline 
+0,6 & -0.93 & 1,1 & -0.16  \\ 
+0,7 & -0.77 & 1,2 & -0.01 \\ 
+0,8 & -0.61 & 1,3 & 0.13 \\
+0,9 & -0.46 & 1,4 & 0.28 \\
+1,0 & -0.31 & 1,5 & 0.42 \\
+\hline
+\end{tabular}
+\vspace{0.5cm}
+
+Из таблицы видно, что $\dot x \in [1,2; 1,3]$, так как на этом отрезке функция $f(x)$ меняет знак.
+
+\item Найдем корень методом бисекции с точностью $\varepsilon = 0.01$:
+
+Обозначим $[a^{(0)}, b^{(0)}] = [a, b]$, где $a = 1,2$ и $b = 1,3$, а при определении очередного отрезка локализации будем сравнивать знаки функции $f(x)$ в середине текущего отрезка на одном из его концов, например на левом.
+
+\begin{enumerate}
+    \item Находим середину отрезка $[a^{(0)}, b^{(0)}]: x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = 1,25$. Длина текущего отрезка $0,1 > 2\varepsilon$, значит вычисляем $f(a^{(0)}) = -0,010 < 0$ и $f(x^{(0)}) = 0,061 > 0$. Видно, что на концах отрезка $[a^{(0)}, x^{(0)}]$ функция принимает значения разного знака; поэтому полагаем $a^{(1)} = a^{(0)}$; $b^{(1)} = x^{(0)}$.
+    \item Длина отрезка $[a^{(1)}, b^{(1)}]$ равна $0,05 > 2\varepsilon$. Вычисляем $x^{(1)} = \frac{a^{(1)} + b^{(1)}}{2} = 1,225$; $f(a^{(1)}) = -0,010 < 0$; $f(x^{(1)}) = 0,025 > 0$. Все еще на концах отрезка функция принимает знчения разного знака; поэтому полагаем $a^{(2)} = a^{(1)}$; $b^{(2)} = x^{(1)}$.
+    \item Длина отрезка $[a^{(2)}, b^{(2)}]$ равна $0,025 > 2\varepsilon$. Вычисляем $x^{(2)} = \frac{a^{(2)} + b^{(2)}}{2} = 1,2125$; $f(a^{(2)}) = -0,010 < 0$; $f(x^{(2)}) = 0.006 > 0$. Все еще на концах отрезка функция принимает знчения разного знака; поэтому полагаем $a^{(3)} = a^{(2)}$; $b^{(3)} = x^{(2)}$.
+    \item Длина отрезка $[a^{(3)}, b^{(3)}]$ равна $0,0125 < 2\varepsilon$. Выполняется критерий окончания метода бисекции, значит середина данного отрезка $x^{(3)} = \frac{a^{(3)} + b^{(3)}}{2} = 1,20626$ является приближенным значением корня $\dot x$ с точностью $\varepsilon$.
+\end{enumerate}
+\vspace{0.5cm}
+Все вычисления удобно представлять в виде таблицы (нумерацию шагов начинаем с 0):
+
+\begin{tabular}{ | c | c | c  | c | c | c | c | }
+\hline
+$k$ & $a^{(k)}$ & $b^{(k)}$ & $x^{(k)}$ & Знак $f(a^{(k)})$ & Знак $f(x^{(k)})$ & $b^{(k)} - a^{(k)}$\\ \hline 
+0 & 1,2000 & 1,3000 & 1,2500 & - & + & 0,1000 \\ 
+1 & 1,2000 & 1,2500 & 1,2250 & - & + & 0,0500 \\ 
+2 & 1,2000 & 1,2250 & 1,2125 & - & + & 0,0250 \\
+3 & 1,2000 & 1,2125 & \textbf{1,20626} &  &  & 0,0125 \\
+\hline
+\end{tabular}
+
+\end{enumerate}
+\vspace{1cm}
+
+\begin{center}
+\Large \textbf{Таким образом, найденное значение корня:} $$\dot x = 1,21 \pm 0.01$$
+\end{center}
+
+\end{document}

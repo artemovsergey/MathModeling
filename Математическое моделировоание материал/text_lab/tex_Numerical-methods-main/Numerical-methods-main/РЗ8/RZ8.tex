@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{multirow} 
+\usepackage{booktabs} 
+
+\usepackage{graphicx} 
+
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\usepackage{fancyhdr}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\pagestyle{fancy} 
+
+\fancyhf{} 
+
+\lhead{\footnotesize Расчетное задание №8}
+
+\rhead{\footnotesize Николаев Юрий} 
+
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+
+\thispagestyle{empty} 
+
+\begin{tabular}{p{15.5cm}} 
+НИУ МЭИ \\ А-13а-19  \\ Вариант 13 \\ Николаев Юрий\\
+\hline 
+\\
+\end{tabular} 
+
+\vspace*{0.3cm}
+
+\begin{center} 
+	{\Large \bf Расчетное задание №8} 
+	\vspace{2mm}
+\end{center}  
+
+\vspace{0.4cm}
+
+
+\section{Задание}
+Решить систему уравнений $Ax = b$ методом прогонки.
+УКАЗАНИЕ: промежуточные результаты вычислять с шестью знаками после запятой.
+
+\begin{center}
+\begin{tabular}{ | c c c c c | c | }
+\hline
+ \multicolumn{5}{| c |}{A} & b \\ \hline 
+4 & -2 & 0 & 0 & 0 & 22 \\
+-2 & 11 & 4 & 0 & 0 & 3 \\
+0 & 1 & 12 & -5 & 0 & 31 \\
+0 & 0 & 5 & 17 & 4 & 174 \\
+0 & 0 & 0 & 4 & 7 & 46 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Решение}
+
+\begin{enumerate}
+
+\item Вычислим прогоночные коэффициенты. Прямой ход прогонки:
+
+$\gamma_1 = b_1 = 4 \Rightarrow 
+\alpha_1 = -\frac{c_1}{\gamma_1} = \frac{1}{2}, 
+\beta_1 = \frac{d_1}{\gamma_1} = \frac{11}{2}$
+
+$\gamma_2 = b_2 + a_2\alpha_1 = 11 - 1 = 10  \Rightarrow 
+\alpha_2 = -\frac{c_2}{\gamma_2} = -\frac{2}{5}, 
+\beta_2 = \frac{d_2 - a_2\beta_1}{\gamma_2} = \frac{7}{5}$
+
+$\gamma_3 = b_3 + a_3\alpha_2 = 12 - \frac{2}{5} = \frac{58}{5}  \Rightarrow 
+\alpha_3 = -\frac{c_3}{\gamma_3} = \frac{25}{58}, 
+\beta_3 = \frac{d_3 - a_3\beta_2}{\gamma_3} = \frac{74}{29}$
+
+$\gamma_4 = b_4 + a_4\alpha_3 = 17 + \frac{125}{58} = \frac{1111}{58}  \Rightarrow 
+\alpha_4 = -\frac{c_4}{\gamma_4} = -\frac{232}{1111}, 
+\beta_4 = \frac{d_4 - a_4\beta_3}{\gamma_4} = \frac{9352}{1111}$
+
+$\gamma_5 = b_5 + a_5\alpha_4 = 7 - \frac{928}{1111} = \frac{6849}{1111}  \Rightarrow 
+\beta_5 = \frac{d_5 - a_5\beta_4}{\gamma_5} = \frac{13698}{6849} = 2$
+
+\item Обратный ход метода прогонки:
+
+\begin{center}
+    $x_m = \beta_m$
+
+    $x_i = \alpha_i x_{i+1} + \beta_i$
+
+    $i = m - 1, m - 2, ..., 1$
+\end{center}
+
+$x_5 = \beta_5 = 2$
+
+$x_4 = -\frac{2 \cdot 232}{1111} + \frac{9352}{1111} = \frac{8888}{1111} = 8$
+
+$x_3 = \frac{8 \cdot 25}{58} + \frac{148}{58} = \frac{348}{58} = 6$
+
+$x_2 = -\frac{6 \cdot 2}{5} + \frac{7}{5} = \frac{-5}{5} = -1$
+
+$x_1 = -\frac{1}{2} + \frac{11}{2} = \frac{10}{2} = 5$
+
+\textbf{Ответ: $x_1 = 5, x_2 = -1, x_3 = 6, x_4 = 8, x_5 = 2$}
+
+\end{enumerate}
+
+\end{document}

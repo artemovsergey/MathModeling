@@ -1,0 +1,4 @@
+1) https://pythonworld.ru/numpy/1.html
+2) https://docs-python.ru/tutorial/mnogopotochnost-python/
+3) https://ru.stackoverflow.com/questions/670011/np-append-Необходимо-добавить-в-конец-матрицы-столбец
+4) https://dev-gang.ru/article/metod-listsort-v-python-b5gidv4ync/

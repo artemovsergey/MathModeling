@@ -1,0 +1,1 @@
+node C:\Users\olga\Desktop\14\gradient_descent.js

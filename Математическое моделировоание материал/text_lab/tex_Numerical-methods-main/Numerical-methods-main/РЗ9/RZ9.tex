@@ -1,0 +1,119 @@
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{multirow} 
+\usepackage{booktabs} 
+
+\usepackage{graphicx} 
+
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\usepackage{fancyhdr}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\pagestyle{fancy} 
+
+\fancyhf{} 
+
+\lhead{\footnotesize Расчетное задание №9}
+
+\rhead{\footnotesize Николаев Юрий} 
+
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+
+\thispagestyle{empty} 
+
+\begin{tabular}{p{15.5cm}} 
+НИУ МЭИ \\ А-13а-19  \\ Вариант 13 \\ Николаев Юрий\\
+\hline 
+\\
+\end{tabular} 
+
+\vspace*{0.3cm}
+
+\begin{center} 
+	{\Large \bf Расчетное задание №9} 
+	\vspace{2mm}
+\end{center}  
+
+\vspace{0.4cm}
+
+
+\section{Задание}
+Вычислить нормы $\|\cdot\|_1$, $\|\cdot\|_E$, $\|\cdot\|_\infty$ матрицы $A$ и нормы $\|\cdot\|_1$, $\|\cdot\|_2$, $\|\cdot\|_\infty$ вектора $b$. Считая, что компоненты вектора $b$ получены в результате округления по дополнению, найти его относительную погрешность в каждой из трех указанных норм.
+
+\begin{center}
+\begin{tabular}{ | c c c | c | }
+\hline
+ \multicolumn{3}{| c |}{A} & b \\ \hline 
+-2,693 & 2,013 & 2,284 & -3 \\
+-2,487 & -2,574 & -0,792 & -3,87 \\
+1,602 & 2,557 & 1,563 & 8 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Решение}
+
+\begin{enumerate}
+
+\item Найдем нормы $\|\cdot\|_1$, $\|\cdot\|_E$, $\|\cdot\|_\infty$ матрицы $A$:
+
+$\|A\|_1 = \max\limits_{{1 \leq j \leq m}} \sum\limits_{i = 1}^{m}|a_{i, j}| = \max\limits_{{1 \leq j \leq m}} (6,782; 7,144; 4,639) = 7,144$
+
+$\|A\|_E = \sqrt{2.693^2 + 2.013^2 + 2.284^2 + 2.487^2 + 2.574^2 + 0.792^2 + 1.602^2 + 2.557^2 + 1.563^2} \approx 6,443$
+
+$\|A\|_\infty = \max\limits_{{1 \leq i \leq m}} \sum\limits_{j = 1}^{m}|a_{i, j}| = \max\limits_{{1 \leq i \leq m}} (6,990; 5,853; 5,722)^T$
+
+
+\item Найдем нормы $\|\cdot\|_1$, $\|\cdot\|_2$, $\|\cdot\|_\infty$ вектора $b$:
+
+$\|b\|_1 = \sum\limits_{i = 1}^{m}|b_i| = 3 + 3,87 + 8 = 14,87$
+
+$\|b\|_2 = \sqrt{\sum\limits_{i = 1}^{m}|b_i|^2} = \sqrt{9 + 14,9769 + 64} \approx 9,38$
+
+$\|b\|_\infty = \max\limits_{{1 \leq i \leq m}}|b_i| = 8$
+
+\newpage
+
+\item Считая, что компоненты вектора $b$ получены в результате округления по дополнению, найдем его относительную погрешность в каждой из трех указанных норм:
+
+$\Delta b = \|\overline{b} - b\|$
+
+$\delta b = \frac{\Delta b}{\|\overline{b}\|}$
+
+Абсолютные погрешности компонент вектора равны соответвенно: $5 \cdot 10^{-1}, 5 \cdot 10^{-3}, 5 \cdot 10^{-1}$. Тогда абсолютная погрешность вектора равна:
+
+\begin{enumerate}
+    \item в норме $\|b\|_1$: $\Delta b = 1,005 \approx 1$
+    \item в норме $\|b\|_2$: $\Delta b \approx 0,7$
+    \item в норме $\|b\|_\infty$: $\Delta b = 0,5$
+\end{enumerate}
+
+Тогда относительные погрешности соответственно для норм $\|b\|_1$, $\|b\|_2$, $\|b\|_\infty$ равны:
+
+\begin{enumerate}
+    \item в норме $\|b\|_1$: $\delta b \approx 6,7 \cdot 10^{-2}$
+    \item в норме $\|b\|_2$: $\delta b \approx 7,5 \cdot 10^{-2}$
+    \item в норме $\|b\|_\infty$: $\delta b \approx 6,3 \cdot 10^{-2} $
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+\end{document}

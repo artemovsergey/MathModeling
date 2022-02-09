@@ -1,0 +1,1 @@
+node D:\university\ПЧМ\lab10\start.js

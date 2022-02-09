@@ -1,0 +1,456 @@
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{multirow} 
+\usepackage{booktabs} 
+
+\usepackage{graphicx} 
+
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+\usepackage{float}
+
+\usepackage{amsmath}
+
+\usepackage{fancyhdr}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+
+\pagestyle{fancy} 
+
+\fancyhf{} 
+
+\lhead{\footnotesize Расчетное задание №11}
+
+\rhead{\footnotesize Николаев Юрий} 
+
+\cfoot{\footnotesize \thepage} 
+
+\begin{document}
+
+\thispagestyle{empty} 
+
+\begin{tabular}{p{15.5cm}} 
+НИУ МЭИ \\ А-13а-19  \\ Вариант 13 \\ Николаев Юрий\\
+\hline 
+\\
+\end{tabular} 
+
+\vspace*{0.3cm}
+
+\begin{center} 
+	{\Large \bf Расчетное задание №11} 
+	\vspace{2mm}
+\end{center}  
+
+\vspace{0.4cm}
+
+
+\section{Задание}
+Дана система уравнений $Ax = b$. Привести ее к виду, удобному для итераций, проверить выполнение достаточного условия сходимости указанных ниже методов. Выполнить три итерации по методу Якоби и три итерации по методу Зейделя. Определить, во сколько раз уменьшится норма невязки в каждом случае. Используя апостериорную оценку, вычислить погрешность приближенного решения, полученного на третьей итерации каждого метода.
+
+УКАЗАНИЕ. Для обеспечения выполнения достаточного условия сходимости воспользоваться перестановкой строк в исходной системе уравнений.
+
+\begin{center}
+\begin{tabular}{ | c c c c | c | }
+\hline
+ \multicolumn{4}{| c |}{A} & b \\ \hline 
+-2 & -8 & -3 & 66 & -629 \\
+67 & 4 & 0 & -5 & 507 \\
+0 & -10 & 86 & -1 & -562 \\
+0 & 115 & 9 & -6 & -348 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Решение}
+
+\begin{enumerate}
+
+\item Приведем матрицу к виду, удобному для итераций.
+
+\begin{equation*}
+    A =
+    \begin{pmatrix}
+        67 & 4 & 0 & -5 & 507 \\
+        0 & 115 & 9 & -6 & -348 \\
+        0 & -10 & 86 & -1 & -562 \\
+        -2 & -8 & -3 & 66 & -629
+    \end{pmatrix}
+\end{equation*}
+
+\begin{equation*}
+\begin{cases}
+    x_1 = -\frac{4x_2}{67} + \frac{5x_4}{67} + \frac{507}{67} \\
+    x_2 = -\frac{9x_3}{115} + \frac{6x_4}{115} - \frac{348}{115} \\
+    x_3 = \frac{10x_2}{86} + \frac{x_4}{86} - \frac{562}{86} \\
+    x_4 = \frac{2x_1}{66} + \frac{8x_2}{66} + \frac{3x_3}{66} - \frac{629}{66} \\
+\end{cases}
+\end{equation*}
+
+\begin{equation*}
+    B =
+    \begin{pmatrix}
+        0 & -\frac{4}{67} & 0 & \frac{5}{67}  \\
+        0 & 0 & -\frac{9}{115} & \frac{6}{115}  \\
+        0 & \frac{10}{86} & 0 & \frac{1}{86}  \\
+        \frac{2}{66} & \frac{8}{66} & \frac{3}{66} & 0 
+    \end{pmatrix}
+\end{equation*}
+
+\newpage
+
+\item Проверим выполнение достаточного условия сходимости метода Якоби и Зейделя.
+
+Достаточное условие сходимости метода Якоби: $\|B\|_\infty \approx 0,1969 < 1$ - выполняется.
+
+Достаточное условие сходимости метода Зейделя: $\|B_1\|_\infty + \|B_2\|_\infty \approx 0,1969 + 0,1343 \approx 0,3312 < 1$ - выполняется.
+
+\item Выполним три итерации по методу Якоби.
+
+\begin{equation*}
+\begin{cases}
+    x_1^{(n+1)} = -\frac{4x_2^{(n)}}{67} + \frac{5x_4^{(n)}}{67} + \frac{507}{67} \\
+    x_2^{(n+1)} = -\frac{9x_3^{(n)}}{115} + \frac{6x_4^{(n)}}{115} - \frac{348}{115} \\
+    x_3^{(n+1)} = \frac{10x_2^{(n)}}{86} + \frac{x_4^{(n)}}{86} - \frac{562}{86} \\
+    x_4^{(n+1)} = \frac{2x_1^{(n)}}{66} + \frac{8x_2^{(n)}}{66} + \frac{3x_3^{(n)}}{66} - \frac{629}{66} \\
+\end{cases}
+\end{equation*}
+
+$x^{(0)} = (\frac{507}{67}, -\frac{348}{115}, -\frac{562}{86}, -\frac{629}{66})^T \approx (7,567; -3,026; -6,535; -9,530)^T$
+
+1 итерация:
+
+$x_1^{(1)} = \frac{348 \cdot 4}{115 \cdot 67} - \frac{629 \cdot 5}{66 \cdot 67} + \frac{507}{67} \approx 7,037$
+
+$x_2^{(1)} = \frac{562 \cdot 9}{86 \cdot 115} - \frac{629 \cdot 6}{66 \cdot 115} - \frac{348}{115} \approx -3,012$
+
+$x_3^{(1)} = -\frac{348 \cdot 10}{115 \cdot 86} - \frac{629}{66 \cdot 86} - \frac{562}{86} \approx -6,998$
+
+$x_4^{(1)} = \frac{507 \cdot 2}{67 \cdot 66} - \frac{348 \cdot 8}{115 \cdot 66} - \frac{562 \cdot 3}{86 \cdot 66} - \frac{629}{66} \approx -9,965$
+
+$x^{(1)} = (7,037; -3,012; -6,998; -9,965)^T$
+
+2 итерация:
+
+$x_1^{(2)} = \frac{1}{67} \cdot (-4 \cdot (-3,012) - 5 \cdot 9,965 + 507) \approx 7,003$
+
+$x_2^{(2)} = \frac{1}{115} \cdot (-9 \cdot (-6,998) - 6 \cdot 9,965 - 348) \approx -2,998$
+
+$x_3^{(2)} = \frac{1}{86} \cdot (10 \cdot (-3,012) - \cdot 9,965 - 562) \approx -7,001$
+
+$x_4^{(2)} = \frac{1}{66} \cdot (2 \cdot 7,037 - 8 \cdot 3,012 - 3 \cdot 6,998 - 629) \approx -10$
+
+$x^{(2)} = (7,003; -2,998; -7,001; -10)^T$
+
+3 итерация:
+
+$x_1^{(3)} = \frac{1}{67} \cdot (-4 \cdot (-2,998) - 5 \cdot 10 + 507) \approx 6,99999$
+
+$x_2^{(3)} = \frac{1}{115} \cdot (-9 \cdot (-7,001) - 6 \cdot 10 - 348) \approx -2,99992$
+
+$x_3^{(3)} = \frac{1}{86} \cdot (10 \cdot (-2,998) - \cdot 10 - 562) \approx -7$
+
+$x_4^{(3)} = \frac{1}{66} \cdot (2 \cdot 7,003 - 8 \cdot 2,998 - 3 \cdot 7,001 - 629) \approx -10$
+
+$x^{(3)} = (6,99999; -2,99992; -7; -10)^T$
+
+\newpage
+
+\begin{equation*}
+    r^{(0)} = Ax^{(0)} - b =
+    \begin{pmatrix}
+        542,535 \\
+        -349,625 \\
+        -522,220 \\
+        -600,301 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        35,535 \\
+        -1,625 \\
+        39,780 \\
+        28,699 \\
+    \end{pmatrix}
+    , \|r^{(0)}\| = 39,780
+\end{equation*}
+
+\begin{equation*}
+    r^{(1)} = Ax^{(1)} - b =
+    \begin{pmatrix}
+        509,256 \\
+        -349,572 \\
+        -561,743 \\
+        -626,674 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        2,256 \\
+        -1,572 \\
+        0,257 \\
+        2,326 \\
+    \end{pmatrix}
+    , \|r^{(1)}\| = 2,326
+\end{equation*}
+
+\begin{equation*}
+    r^{(2)} = Ax^{(2)} - b =
+    \begin{pmatrix}
+        507,209 \\
+        -347,779 \\
+        -562,106 \\
+        -629,019 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0,209 \\
+        0,221 \\
+        -0,106 \\
+        -0,019 \\
+    \end{pmatrix}
+    , \|r^{(2)}\| = 0,221
+\end{equation*}
+
+\begin{equation*}
+    r^{(3)} = Ax^{(3)} - b =
+    \begin{pmatrix}
+        506,99965 \\
+        -347,9908 \\
+        -562,0008 \\
+        -629,00062 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        -0,00035 \\
+        0,0092 \\
+        -0,0008 \\
+        -0,00062 \\
+    \end{pmatrix}
+    , \|r^{(3)}\| = 0,0092
+\end{equation*}
+
+$$\frac{\|r^{(0)}\|}{\|r^{(2)}\|} = \frac{39,780}{0,0092} \approx 4324$$
+
+\item Выполним три итерации по методу Зейделя.
+
+\begin{equation*}
+\begin{cases}
+    x_1^{(n+1)} = -\frac{4x_2^{(n)}}{67} + \frac{5x_4^{(n)}}{67} + \frac{507}{67} \\
+    x_2^{(n+1)} = -\frac{9x_3^{(n)}}{115} + \frac{6x_4^{(n)}}{115} - \frac{348}{115} \\
+    x_3^{(n+1)} = \frac{10x_2^{(n+1)}}{86} + \frac{x_4^{(n)}}{86} - \frac{562}{86} \\
+    x_4^{(n+1)} = \frac{2x_1^{(n+1)}}{66} + \frac{8x_2^{(n+1)}}{66} + \frac{3x_3^{(n+1)}}{66} - \frac{629}{66} \\
+\end{cases}
+\end{equation*}
+
+$x^{(0)} = (\frac{507}{67}, -\frac{348}{115}, \frac{10 \cdot (-3,026)}{86} -\frac{562}{86}, \frac{2 \cdot 7,567}{66} + \frac{8 \cdot (-3,026)}{66} + \frac{3 \cdot (-6,887)}{66} - \frac{629}{66})^T \approx $
+
+$\approx (7,567; -3,026; -6,887; -9,981)^T$
+
+1 итерация:
+
+$x_1^{(1)} = \frac{1}{67} \cdot (-4 \cdot (-3,026) - 5 \cdot 9,981 + 507) \approx 7,003$
+
+$x_2^{(1)} = \frac{1}{115} \cdot (-9 \cdot (-6,887) - 6 \cdot 9,981 - 348) \approx -3,008$
+
+$x_3^{(1)} = \frac{1}{86} \cdot (10 \cdot (-3,008) - \cdot 9,981 - 562) \approx -7,001$
+
+$x_4^{(1)} = \frac{1}{66} \cdot (2 \cdot 7,003 - 8 \cdot 3,008 - 3 \cdot 7,001 - 629) \approx -10,001$
+
+$x^{(1)} = (7,003; -3,008; -7,001; -10,001)^T$
+
+\newpage
+
+2 итерация:
+
+$x_1^{(2)} = \frac{1}{67} \cdot (-4 \cdot (-3,008) - 5 \cdot 10,001 + 507) \approx 7,0004$
+
+$x_2^{(2)} = \frac{1}{115} \cdot (-9 \cdot (-7,001) - 6 \cdot 10,001 - 348) \approx -2,99997$
+
+$x_3^{(2)} = \frac{1}{86} \cdot (10 \cdot (-3) - \cdot 10,001 - 562) \approx -7,00001$
+
+$x_4^{(2)} = \frac{1}{66} \cdot (2 \cdot 7 - 8 \cdot 3 - 3 \cdot 7,00001 - 629) \approx -10$
+
+$x^{(2)} = (7,0004; -2,99997; -7,00001; -10)^T$
+
+3 итерация:
+
+$x_1^{(3)} = \frac{1}{67} \cdot (-4 \cdot (-2,99997) - 5 \cdot 10 + 507) \approx 6,999998$
+
+$x_2^{(3)} = \frac{1}{115} \cdot (-9 \cdot (-7,00001) - 6 \cdot 10 - 348) \approx -2,999999$
+
+$x_3^{(3)} = \frac{1}{86} \cdot (10 \cdot (-3) - \cdot 10 - 562) \approx -7$
+
+$x_4^{(3)} = \frac{1}{66} \cdot (2 \cdot 7 - 8 \cdot 3 - 3 \cdot 7 - 629) \approx -10$
+
+$x^{(3)} = (6,999998; -2,999999; -7; -10)^T$
+
+\begin{equation*}
+    r^{(0)} = Ax^{(0)} - b =
+    \begin{pmatrix}
+        544,790 \\
+        -350,087 \\
+        -552,041 \\
+        -629,011 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        37,790 \\
+        -2,087 \\
+        9,959 \\
+        -0,011 \\
+    \end{pmatrix}
+    , \|r^{(0)}\| = 37,790
+\end{equation*}
+
+\begin{equation*}
+    r^{(1)} = Ax^{(1)} - b =
+    \begin{pmatrix}
+        507,174 \\
+        -348,923 \\
+        -562,005 \\
+        -629,005 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0,174 \\
+        -0,923 \\
+        -0,005 \\
+        -0,005 \\
+    \end{pmatrix}
+    , \|r^{(1)}\| = 0,923
+\end{equation*}
+
+\begin{equation*}
+    r^{(2)} = Ax^{(2)} - b =
+    \begin{pmatrix}
+        507,02692 \\
+        -347,99664 \\
+        -562,00116 \\
+        -629,00101 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0,02692 \\
+        -0,00346 \\
+        -0,00116 \\
+        -0,00101 \\
+    \end{pmatrix}
+    , \|r^{(2)}\| = 0,02692
+\end{equation*}
+
+\begin{equation*}
+    r^{(3)} = Ax^{(3)} - b =
+    \begin{pmatrix}
+        506,99987 \\
+        -347,99989 \\
+        -562,00001 \\
+        -629,000001 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        507 \\
+        -348 \\
+        -562 \\
+        -629 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        -0,00013 \\
+        -0,00011 \\
+        -0,00001 \\
+        -0,000001 \\
+    \end{pmatrix}
+    , \|r^{(3)}\| = 0,00013
+\end{equation*}
+
+$$\frac{\|r^{(0)}\|}{\|r^{(3)}\|} = \frac{37,790}{0,00013} \approx 290692$$
+
+\newpage
+
+\item Используя апостериорную оценку, вычислим погрешность приближенного решения, полученного на третьей итерации каждого метода.
+
+Метод Якоби:
+
+\begin{equation*}
+    \|x^{(2)} - x^*\| \leq \frac{\|B\|_\infty}{1 - \|B\|_\infty} \cdot \|x^{(2)} - x^{(1)}\|_\infty = \frac{0,1969}{1 - 0,1969} \cdot 
+    \begin{Vmatrix}
+        -0,034 \\
+        -0,014 \\
+        -0,003 \\
+        -0,035 \\
+    \end{Vmatrix}_\infty
+    = 0,0086
+\end{equation*}
+
+Метод Зейделя:
+
+\begin{equation*}
+    \|x^{(2)} - x^*\| \leq \frac{\|B_2\|_\infty}{1 - \|B_1\|_\infty} \cdot \|x^{(2)} - x^{(1)}\|_\infty = \frac{0,1343}{1 - 0,1969} \cdot 
+    \begin{Vmatrix}
+        -0,003 \\
+        0,008 \\
+        -0,001 \\
+        -0,001 \\
+    \end{Vmatrix}_\infty
+    = 0,0013
+\end{equation*}
+
+\end{enumerate}
+
+\end{document}

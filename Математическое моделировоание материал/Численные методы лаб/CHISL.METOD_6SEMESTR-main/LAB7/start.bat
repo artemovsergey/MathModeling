@@ -1,0 +1,1 @@
+node C:\Users\olga\Desktop\Laba7_\index.js

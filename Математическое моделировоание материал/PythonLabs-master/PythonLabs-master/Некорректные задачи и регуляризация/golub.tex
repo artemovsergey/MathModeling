@@ -1,0 +1,210 @@
+\documentclass[a4paper,10pt]{amsart}
+
+\usepackage{amsmath}
+
+\newcommand{\trans}[1]{{#1}^{\text{T}}}      % transposition
+\newcommand{\invtrans}[1]{{#1}^{-\text{T}}}  % inverse and transposition
+\renewcommand{\vec}[1]{\mathbf{\boldsymbol{#1}}}
+\DeclareMathOperator{\trace}{trace}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\discrep}{discrep}
+
+\setcounter{page}{13}
+\begin{document}
+
+\title{Tikhonov Regularization \\ for Large Scale Problems}
+
+\author{Gene H. Golub}
+\address{Department of Computer Science \\
+         Stanford University \\
+         Stanford, CA~94305-2140}
+\email{golub@na-net.ornl.gov}
+
+\author{Urs von Matt}
+\address{Swiss Center for Scientific Computing \\
+         ETH Zentrum \\
+         CH-8092 Z\"urich \\
+         Switzerland}
+\email{vonmatt@na-net.ornl.gov}
+
+\maketitle
+
+
+Tikhonov regularization is frequently used to compute a
+solution to ill-posed linear systems and linear least squares problems.
+In this contribution we consider the (overdetermined) linear system
+\begin{equation*}
+  \vec{b} = A \vec{x} + \vec{e},
+\end{equation*}
+where~$A$ is an~$m$-by-$n$ matrix with~${m \geq n}$,
+$\vec{b}$ and~$\vec{e}$ are vectors of size~$m$,
+and~$\vec{x}$ is an~$n$-vector.
+The matrix~$A$ and the vector~$\vec{b}$ are given,
+and $\vec{e}$ is assumed to be a random noise vector.
+
+The direct solution of the least squares problem
+\begin{equation*}
+  \| A \vec{x} - \vec{b} \|_2 = \min
+\end{equation*}
+may lead to a vector~$\vec{x}$ that is severely contaminated with noise.
+Tikhonov regularization addresses this problem by solving instead the
+linear least squares problem
+\begin{equation*}
+  \| A \vec{x} - \vec{b} \|_2^2 + \alpha \| \vec{x} \|_2^2 = \min.
+\end{equation*}
+The solution~$\vec{x}_\alpha$ satisfies the equation
+\begin{equation*}
+  (\trans{A} A + \alpha I) \vec{x}_\alpha = \trans{A} \vec{b}.
+\end{equation*}
+Equivalently $\vec{x}_\alpha$ can be computed as the solution to
+the linear least squares problem
+\begin{equation*}
+  \Bigl\| \begin{bmatrix}
+            A               \\
+            \sqrt{\alpha} I
+          \end{bmatrix} \vec{x} -
+          \begin{bmatrix}
+            \vec{b} \\
+            \vec{0}
+          \end{bmatrix}
+  \Bigr\|_2 = \min.
+\end{equation*}
+In~\cite{Hansen96} P.~C.~Hansen and D.~P.~O'Leary
+show that, for a given~${\alpha > 0}$, $\vec{x}_\alpha$
+also solves the regularized total least squares problem
+\begin{gather*}
+  \min_{A_0, \vec{b}_0, \vec{x}}
+  \| \left[ A, \vec{b} \right] - \left[ A_0, \vec{b}_0 \right] \|_F, \\
+  \text{s.t.\qquad $\vec{b}_0 = A_0 \vec{x}$,\qquad
+                   $\| \vec{x} \|_2 \leq \delta :=
+                    \| (\trans{A} A + \alpha I)^{-1} \trans{A} \vec{b} \|_2$.}
+\end{gather*}
+
+The choice of an appropriate regularization parameter~$\alpha$
+is crucial,
+and many methods have been proposed for this purpose.
+A first set of methods handles the case where the norm of the
+noise vector~$\vec{e}$ is known:
+\begin{description}
+  \item[Morozov's discrepancy principle]
+    The value of~$\alpha$ is chosen such that the norm of the
+    residual~${\| \vec{b} - A \vec{x}_\alpha \|_2}$ equals the
+    norm of the error term:
+    \begin{equation*}
+      \phi_{\text{M}} (\alpha) :=
+      \alpha^2 \trans{\vec{b}} (A \trans{A} + \alpha I)^{-2} \vec{b} =
+      \| \vec{e} \|_2^2.
+    \end{equation*}
+
+  \item[Gfrerer/Raus-method]
+    The Gfrerer/Raus-method may be seen as an improved variant of the
+    discrepancy principle.
+    It determines~$\alpha$ such that
+    \begin{equation*}
+      \phi_{\text{GR}} (\alpha) :=
+      \alpha^3 \trans{\vec{b}} (A \trans{A} + \alpha I)^{-3} \vec{b} =
+      \| \vec{e} \|_2^2.
+    \end{equation*}
+
+\end{description}
+
+The second set of methods assumes that the norm of the
+noise vector~$\vec{e}$ is unknown:
+\begin{description}
+  \item[Quasi-optimality criterion]
+    The quasi-optimality criterion determines~${\alpha > 0}$ such that
+    \begin{equation*}
+      \phi_{\text{Q}} (\alpha) :=
+      \alpha^2 \trans{\vec{b}} A (\trans{A} A + \alpha I)^{-4}
+               \trans{A} \vec{b} = \min.
+    \end{equation*}
+
+  \item[Generalized cross-validation]
+    The value of~$\alpha$ is computed as the global minimizer of
+    \begin{align*}
+      \phi_{\text{GCV}} (\alpha) := {} &
+        \frac{\| \vec{b} - A (\trans{A} A + \alpha I)^{-1}
+                           \trans{A} \vec{b} \|_2}
+             {\trace \bigl( I - A (\trans{A} A + \alpha I)^{-1}
+                                \trans{A} \bigr)}                         \\
+      {} = {} &
+        \frac{\| (A \trans{A} + \alpha I)^{-1} \vec{b} \|_2}
+             {\trace \bigl( (A \trans{A} + \alpha I)^{-1} \bigr)} = \min.
+    \end{align*}
+
+  \item[L-curve criterion]
+    The L-curve criterion is based on a plot
+    of~${\| \vec{x}_\alpha \|_2}$
+    versus the residual norm~${\| \vec{b} - A \vec{x}_\alpha \|_2}$
+    in a log-log scale.
+    The optimal regularization parameter~$\alpha$ is characterized by 
+    a corner of this graph, i.e.,
+    the point on the L-curve with maximum curvature.
+    Therefore the L-curve criterion maximizes the curvature
+    \begin{equation*}
+      \phi_{\text{L}} (\alpha) :=
+        \frac{\rho' \eta'' - \rho'' \eta'}
+             {\bigl( (\rho')^2 + (\eta')^2 \bigr)^{3/2}} = \max,
+    \end{equation*}
+    where
+    \begin{align*}
+      \rho (\alpha) & {} = \log \| \vec{b} - A (\trans{A} A + \alpha I)^{-1}
+                                             \trans{A} \vec{b} \|_2,         \\
+      \eta (\alpha) & {} = \log \| (\trans{A} A + \alpha I)^{-1}
+                                   \trans{A} \vec{b} \|_2.
+    \end{align*}
+
+\end{description}
+
+If the matrix~$A$ is not too large, say~${n \leq 1000}$,
+then a direct method can be used to compute a regularization
+parameter~$\alpha$.
+For instance one can employ the singular value decomposition of~$A$
+to evaluate the functions~${\phi (\alpha)}$ in the five heuristics above.
+This is the approach taken in the regularization
+tool box by P.~C.~Hansen~\cite{Hansen94}.
+
+For large scale problems iterative methods become necessary.
+We will discuss how the Lanczos algorithm can be used to approximate the
+functions~${\phi (\alpha)}$.
+In most cases we can compute lower and upper bounds on~${\phi (\alpha)}$,
+and these bounds become tighter as the number of Lanczos iterations
+increases.
+In the case of GCV a stochastic trace estimator is used to approximate
+the denominator in~${\phi_{\text{GCV}} (\alpha)}$.
+
+
+{\hyphenpenalty = 1000
+\begin{thebibliography}{1}
+  \bibitem{Golub97}
+    {\sc Gene H. Golub and Urs von Matt},
+    {\sl Generalized Cross-\negthinspace Validation for Large Scale Problems},
+    Journal of Computational and Graphical Statistics, to appear.
+
+  \bibitem{Hanke93}
+    {\sc Martin Hanke and Per Christian Hansen},
+    {\sl Regularization methods for large-scale problems},
+    Surveys on Mathematics for Industry, 3~(1993), pp.~253--315.
+
+  \bibitem{Hansen94}
+    {\sc Per Christian Hansen},
+    {\sl REGULARIZATION TOOLS:
+         A Matlab package for analysis and solution of discrete
+         ill-posed problems},
+    Numerical Algorithms, 6~(1994), pp.~1--35.
+
+  \bibitem{Hansen96}
+    {\sc Per Christian Hansen and Dianne P. O'Leary},
+    {\sl Regularization Algorithms Based on Total Least Squares},
+    Department of Computer Science, University of Maryland,
+    Technical Report~CS-TR-3684, September~1996, \\
+    \verb|ftp://ftp.cs.umd.edu/pub/papers/papers/3684/3684.ps.Z|.
+
+\end{thebibliography}}
+
+\end{document}
+
+
+Gene H. Golub
+

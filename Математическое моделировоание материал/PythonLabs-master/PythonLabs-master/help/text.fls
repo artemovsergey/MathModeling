@@ -1,0 +1,15 @@
+PWD D:/python/help
+INPUT c:/texlive/2018/texmf.cnf
+INPUT c:/texlive/2018/texmf-dist/web2c/texmf.cnf
+INPUT c:/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT text.tex
+OUTPUT text.log
+INPUT c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2018/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2018/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2018/texmf-dist/tex/latex/python/python.sty
+INPUT c:/texlive/2018/texmf-dist/tex/latex/python/python.sty
+INPUT text.aux
+INPUT text.aux
+OUTPUT text.aux

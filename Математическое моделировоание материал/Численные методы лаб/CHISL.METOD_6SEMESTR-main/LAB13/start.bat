@@ -1,0 +1,1 @@
+node C:\Users\olga\Desktop\13\yakobi.js

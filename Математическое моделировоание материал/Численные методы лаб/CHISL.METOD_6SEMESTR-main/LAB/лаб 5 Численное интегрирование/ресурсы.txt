@@ -1,0 +1,3 @@
+1) file:///C:/Users/69110/Downloads/Погрешность.%20Численное%20дифференцирование.%20Численное%20интегрирование%20(4%20часа).pdf
+2) file:///D:/Книги/Python/Python%203%20и%20PyQt%205.%20Разработка%20приложений%20(%20PDFDrive.com%20).pdf
+3) https://stackoverflow.com/questions/32285927/how-to-do-decimal-to-float-conversion-in-python

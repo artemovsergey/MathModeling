@@ -1,0 +1,1 @@
+node C:\Users\olga\Desktop\lab12\progonochka.js

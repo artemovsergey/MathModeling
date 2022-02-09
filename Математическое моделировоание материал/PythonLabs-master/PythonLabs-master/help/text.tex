@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\usepackage[gobble=auto]{pythontex}
+\usepackage{pgfplots}
+
+\begin{document}
+
+\begin{pycode}
+from numpy import * 
+coeffA = 7
+coeffB = sqrt(coeffA)  
+\end{pycode}   
+
+\begin{pysub}
+\begin{tikzpicture}
+  \begin{axis}[xlabel=$x$,ylabel=$y$]
+    \addplot plot {!{coeffA}*x**2 + !{coeffB}*x}; 
+  \end{axis} 
+\end{tikzpicture}
+\end{pysub}
+
+\end{document}

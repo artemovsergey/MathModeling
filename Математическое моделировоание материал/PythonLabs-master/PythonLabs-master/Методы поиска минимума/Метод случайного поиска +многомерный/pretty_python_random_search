@@ -1,0 +1,5 @@
+import operator
+a = [1,2,3,4]
+b = [10,11,12,13]
+
+list(map(operator.mul, a, b))

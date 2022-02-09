@@ -1,0 +1,1 @@
+node D:\university\ПЧМ\8\index.js
